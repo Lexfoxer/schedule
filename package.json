@@ -1,0 +1,25 @@
+{
+  "name": "schedule",
+  "version": "0.2.0",
+  "description": "Schedule steam bot for telegram",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lexfoxer",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "4.5.10",
+    "node-telegram-bot-api": "0.23.3",
+    "tress": "1.0.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lexfoxer/schedule.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lexfoxer/schedule/issues"
+  },
+  "homepage": "https://github.com/Lexfoxer/schedule#readme"
+}
