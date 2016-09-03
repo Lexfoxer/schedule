@@ -2,41 +2,19 @@
 
 mongoose = require 'mongoose'
 tress = require 'tress'
+my_date = require './my_date'
+
 Schema = mongoose.Schema
 mongoose.Promise = global.Promise
 mongoose.connect 'mongodb://localhost:27017/MySchedule'
 
+Day = require './structure.js'
+	.Day
+Lessons = require './structure.js'
+	.Lessons
+
 db = mongoose.connection
 db.on 'error', console.error.bind console, 'connection error:'
-
-Day = mongoose.model 'Day', new Schema {
-		day_week: String
-		lessons: [Schema.Types.Mixed]
-		army: Boolean
-	}
-
-Lesson = mongoose.model 'Lesson', new Schema {
-		even_week: Number
-		number_lesson: Number
-		title: String
-		number_week: [Number]
-		start_week: Number
-		class_room: String
-	}
-
-# 
-# Dictionary
-# 
-dic_date = {
-	'0': 'Воскресенье'
-	'1': 'Понедельник'
-	'2': 'Вторник'
-	'3': 'Среда'
-	'4': 'Четверг'
-	'5': 'Пятница'
-	'6': 'Суббота'
-}
-now_date = new Date()
 
 
 query_find = (query, callback)->
@@ -45,30 +23,43 @@ query_find = (query, callback)->
 			callback err
 		callback null, data
 
+closeDB = (callback)->
+	db.close()
+	console.log 'DB MySchedule close'
 
 
-filter_today = ()->
-	getDay = dic_date[ now_date.getDay() ]
-	query_find {day_week : getDay}, (err, data)->
+
+
+filter_day = (day_week_code, callback)->
+	query_find { day_week_code : day_week_code }, (err, data)->
 		if err
-			throw err
-		console.log data
+			callback err
+		callback null, data
 
-filter_room = (string_room)->
+filter_room = (string_room, callback)->
 	string_room = string_room.toString().toUpperCase()
 	query_find {lessons: {$elemMatch: {class_room : string_room} }}, (err, data)->
 		if err
-			throw err
-		console.log data
-		db.close()
+			callback err
+		callback null, data
+
+filter_object = (obj_query, callback)->
+	if typeof(obj_query) != object
+		callback 'no object'
+	query_find obj_query, (err, data)->
+		if err
+			callback err
+		callback null, data
 
 
-filter_room '304б'
 
 
-
-
-
+module.exports = {
+	day: filter_day
+	room: filter_room
+	object: filter_object
+	close: closeDB
+}
 
 
 

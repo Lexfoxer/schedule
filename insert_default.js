@@ -13,27 +13,17 @@
 
   mongoose.connect('mongodb://localhost:27017/MySchedule');
 
+  Day = require('./structure.js').Day;
+
+  Lesson = require('./structure.js').Lesson;
+
   db = mongoose.connection;
 
   db.on('error', console.error.bind(console, 'connection error:'));
 
-  Day = mongoose.model('Day', new Schema({
-    day_week: String,
-    lessons: [Schema.Types.Mixed],
-    army: Boolean
-  }));
-
-  Lesson = mongoose.model('Lesson', new Schema({
-    even_week: Number,
-    number_lesson: Number,
-    title: String,
-    number_week: [Number],
-    start_week: Number,
-    class_room: String
-  }));
-
   addDay = tress(function(obj, done) {
     return new Day({
+      day_week_code: obj.code,
       day_week: obj.title,
       lessons: obj.arr,
       army: obj.army
@@ -236,6 +226,14 @@
 
   addDay.push([
     {
+      code: 0,
+      title: "Воскресенье"
+    }
+  ]);
+
+  addDay.push([
+    {
+      code: 1,
       title: "Понедельник",
       arr: monday_arr_lessons
     }
@@ -243,6 +241,7 @@
 
   addDay.push([
     {
+      code: 2,
       title: "Вторник",
       arr: tuesday_arr_lessons
     }
@@ -250,6 +249,7 @@
 
   addDay.push([
     {
+      code: 3,
       title: "Среда",
       arr: wednesday_arr_lessons
     }
@@ -257,14 +257,15 @@
 
   addDay.push([
     {
+      code: 4,
       title: "Четверг",
-      arr: [],
       army: true
     }
   ]);
 
   addDay.push([
     {
+      code: 5,
       title: "Пятница",
       arr: friday_arr_lessons
     }
@@ -272,6 +273,7 @@
 
   addDay.push([
     {
+      code: 6,
       title: "Суббота",
       arr: saturday_arr_lessons
     }
