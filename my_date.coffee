@@ -59,12 +59,13 @@ dictionary_TimeLessons = {
 
 startWeek = new Date(2016, 7, 28, 0, 0, 0)	# указываем воскресенье -1 недели
 startDay = new Date(2016, 8, 1, 0, 0, 0)	# Указываем 1 сентября учебного года
+endDay = new Date(2017, 0, 31, 0, 0, 0)	# указываем последний день учебного семестра
 
 TZO = (new Date().getTimezoneOffset() * -1) * 1000 * 60		# отставание UTC в миллисекундах
 
 getNumberLessonsWeek = (date, callback)->
 	if isNaN(new Date(Date.parse(date)))
-		callback '(getNumberLessonsWeek) Дата не верна: '+date
+		callback 'Дата не верна. Введите дату в формате: день месяц год'
 
 	start = (startWeek.getTime()) + TZO	# указываем первую неделю
 	end = (new Date(date).getTime()) + TZO	# указываем входящую дату
@@ -75,12 +76,17 @@ toDate = (date, callback)->
 	if dictionary_ru_to_eng[arr_date[1]] != undefined
 		date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' '+arr_date[2]
 	if arr_date[2] == undefined
-		date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' 2016'
+		if dictionary_ru_to_eng[arr_date[1]] != undefined
+			date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' 2016'
+		else
+			date = arr_date[0]+' '+arr_date[1]+' 2016'
 
 	if isNaN(new Date(Date.parse(date)))
-		callback '(toDate) Дата не верна: '+date
-	if new Date(date).getTime() < startDay.getTime()
-		callback 'Дата не верна или позже начала учебного года: '+date
+		callback '<b>Дата не верна. Введите дату в формате: день месяц год</b>'
+
+	in_date = new Date(date).getTime()	# полученная дата в секундах
+	if in_date <= startDay.getTime() || in_date >= endDay.getTime()
+		callback '<b>Дата не входит в учебный семестр. Введите дату в формате: день месяц год</b>'
 
 	new_date = new Date((new Date(date).getTime()) + TZO)
 	day_week = new_date.getDay()

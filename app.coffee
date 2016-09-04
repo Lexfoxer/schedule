@@ -31,9 +31,8 @@ tb.on 'message', (msg)->
 		else
 			my_date.to_date msg.text,(err, out_date)->
 				if err
-					tb.sendMessage chatId, err
+					tb.sendMessage chatId, err, {parse_mode: "HTML"}
 					throw err
-				console.log out_date
 
 				lessons.day out_date.dayWeek, (err, obj_day)->
 					if err
@@ -51,24 +50,29 @@ tb.on 'message', (msg)->
 
 
 lessons_to_string = (chatId, array_data, even_week, code_week, callback)->
-	out = ''
+	str_message_lessons = ''
 	for key in array_data
 		if key.even_week == even_week
-			#№#{key.number_lesson} 
-			out += """
-				<b>#{my_date.dic_timeLessons[key.number_lesson]}</b>
-				#{key.title}, #{key.class_room}
-				<b>--------------------</b>\n
-				"""
-	if out != ""
-		callback null, out
+			if key.start_week <= code_week || key.start_week == undefined
+				if key.number_week.length == 0 || key.number_week.indexOf(code_week) >= 0
+					out_string key, (data)->
+						str_message_lessons += data
+	if str_message_lessons != ""
+		callback null, str_message_lessons
 	else
 		callback null, 'Пар нет, отдыхай'
 
 
 
 
-
+out_string = (key, callback)->
+	ret = """
+		<b>#{my_date.dic_timeLessons[key.number_lesson]}</b>
+		#{key.title}, #{key.class_room}
+		<b>--------------------</b>\n
+		"""
+	if ret != ""
+		callback ret
 
 
 
