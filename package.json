@@ -9,7 +9,6 @@
   "author": "lexfoxer",
   "license": "MIT",
   "dependencies": {
-    "async": "2.0.1",
     "mongoose": "4.5.10",
     "node-telegram-bot-api": "0.23.3",
     "tress": "1.0.3"

@@ -23,12 +23,6 @@ query_find = (query, callback)->
 			callback err
 		callback null, data
 
-query_find_one = (query, callback)->
-	Day.findOne query, (err, data)->
-		if err
-			callback err
-		callback null, data
-
 closeDB = (callback)->
 	db.close()
 	console.log 'DB MySchedule close'
@@ -37,7 +31,7 @@ closeDB = (callback)->
 
 
 filter_day = (day_week_code, callback)->
-	query_find_one { day_week_code : day_week_code }, (err, data)->
+	query_find { day_week_code : day_week_code }, (err, data)->
 		if err
 			callback err
 		callback null, data
