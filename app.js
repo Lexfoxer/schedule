@@ -41,6 +41,7 @@
       default:
         return my_date.to_date(msg.text, function(err, out_date) {
           if (err) {
+            tb.sendMessage(chatId, err);
             throw err;
           }
           console.log(out_date);

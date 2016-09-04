@@ -9,6 +9,7 @@ tb = new TelegramBot token, {polling: true}
 
 tb.on 'message', (msg)->
 	chatId = msg.chat.id
+
 	switch msg.text.toLowerCase()
 
 		when 'сегодня'
@@ -30,6 +31,7 @@ tb.on 'message', (msg)->
 		else
 			my_date.to_date msg.text,(err, out_date)->
 				if err
+					tb.sendMessage chatId, err
 					throw err
 				console.log out_date
 
