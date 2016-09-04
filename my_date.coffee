@@ -50,8 +50,8 @@ getNumberLessonsWeek = (date, callback)->
 	if isNaN(new Date(Date.parse(date)))
 		callback '(getNumberLessonsWeek) Дата не верна: '+date
 
-	start = (startWeek.getTime()) + TZO
-	end = (new Date(date).getTime()) + TZO	# указываем сегодняшнюю дату
+	start = (startWeek.getTime()) + TZO	# указываем первую неделю
+	end = (new Date(date).getTime()) + TZO	# указываем входящую дату
 	callback null, Math.ceil(((end - start) / (1000 * 60 * 60 * 24)) / 7)
 
 toDate = (date, callback)->
@@ -63,6 +63,8 @@ toDate = (date, callback)->
 	code_week_fn = getNumberLessonsWeek new_date,(err, data)->
 		if err
 			throw err
+		if day_week == 0
+			return data-1
 		return data
 
 	callback null, {

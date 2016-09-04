@@ -62,6 +62,10 @@
       if (err) {
         throw err;
       }
+      console.log(day_week);
+      if (day_week === 0) {
+        return data - 1;
+      }
       return data;
     });
     return callback(null, {
