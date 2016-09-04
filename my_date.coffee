@@ -1,9 +1,9 @@
 'use strict'
 
 # 
-# Dictionary
+# Dictionarys
 # 
-dictionaryDate = {
+dictionary_DayWeek = {
 	'0': 'Воскресенье'
 	'1': 'Понедельник'
 	'2': 'Вторник'
@@ -13,23 +13,72 @@ dictionaryDate = {
 	'6': 'Суббота'
 }
 
-TZO = (new Date().getTimezoneOffset() * -1) * 1000 * 60
+dictionary_Months = {
+	'0': 'Января'
+	'1': 'Февраля'
+	'2': 'Марта'
+	'3': 'Апреля'
+	'4': 'Мая'
+	'5': 'Июня'
+	'6': 'Июля'
+	'7': 'Августа'
+	'8': 'Сентября'
+	'9': 'Октября'
+	'10': 'Ноября'
+	'11': 'Декабря'
+}
 
-getNumberLessonsWeek = (callback)->
-	start = (new Date(2016, 7, 28, 0, 0, 0).getTime()) + TZO # указываем воскресенье -1 недели
-	end = (new Date().getTime()) + TZO # указываем сегодняшнюю дату
-	callback Math.ceil(((end - start) / (1000 * 60 * 60 * 24)) / 7)
+dictionary_TimeLessons = {
+	'1': '8:30-10:00'
+	'2': '10:10-11:40'
+	'3': '11:50-13:20'
+	'4': '13:50-15:20'
+	'5': '15:30-17:00'
+	'6': '17:10-18:40'
+}
+
+
+# 
+# Generation time
+# 
+
+startWeek = new Date(2016, 7, 28, 0, 0, 0)	# указываем воскресенье -1 недели
+
+TZO = (new Date().getTimezoneOffset() * -1) * 1000 * 60		# отставание UTC в миллисекундах
+
+getNumberLessonsWeek = (date, callback)->
+	if isNaN(new Date(Date.parse(date)))
+		callback '(getNumberLessonsWeek) Дата не верна: '+date
+
+	start = (startWeek.getTime()) + TZO
+	end = (new Date(date).getTime()) + TZO	# указываем сегодняшнюю дату
+	callback null, Math.ceil(((end - start) / (1000 * 60 * 60 * 24)) / 7)
 
 toDate = (date, callback)->
 	if isNaN(new Date(Date.parse(date)))
-		callback 'Дата не верна: '+date
-	else
-		newDate = (new Date(date).getTime()) + TZO
-		callback null, newDate
+		callback '(toDate) Дата не верна: '+date
+
+	new_date = new Date((new Date(date).getTime()) + TZO)
+	day_week = new_date.getDay()
+	code_week_fn = getNumberLessonsWeek new_date,(err, data)->
+		if err
+			throw err
+		return data
+
+	callback null, {
+		newDate: new_date			# полная дата (UTC + 3)
+		dayWeek: day_week			# день недели (int)
+		codeWeek: code_week_fn		# номер недели (int)
+		evenWeek: code_week_fn%2	# четность недели
+	}
 
 
 module.exports = {
 	int_week: getNumberLessonsWeek
-	dic_date: dictionaryDate
+	dic_date: dictionary_DayWeek
+	dic_month: dictionary_Months
+	dic_timeLessons: dictionary_TimeLessons
 	to_date: toDate
 }
+
+

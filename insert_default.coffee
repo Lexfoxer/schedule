@@ -63,20 +63,20 @@ monday_arr_lessons = [
 		title: 'Базы данных', class_room: '304Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 2
-		title: 'Электротехника, электроника и схемотехника', class_room: '603А'
+		even_week: 0, number_lesson: 2
+		title: 'Электротехника', class_room: '603А'
 		number_week: [4,8,12,16]
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 3
-		title: 'Электротехника, электроника и схемотехника', class_room: '301В'
+		even_week: 0, number_lesson: 3
+		title: 'Электротехника', class_room: '301В'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 4
+		even_week: 0, number_lesson: 4
 		title: 'Базы данных', class_room: '304Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 5
+		even_week: 0, number_lesson: 5
 		title: 'Базы данных', class_room: '304Б'
 	})
 ]
@@ -99,15 +99,15 @@ tuesday_arr_lessons = [
 		title: 'Физическая культура', class_room: 'Зал'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 3
+		even_week: 0, number_lesson: 3
 		title: 'Вычислительная математика', class_room: '609А'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 4
+		even_week: 0, number_lesson: 4
 		title: 'Вычислительная математика', class_room: '306Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 5
+		even_week: 0, number_lesson: 5
 		title: 'Физическая культура', class_room: 'Зал'
 	})
 ]
@@ -127,23 +127,23 @@ wednesday_arr_lessons = [
 	})
 	new Lesson({
 		even_week: 1, number_lesson: 5
-		title: 'Электротехника, электроника и схемотехника', class_room: '301В'
+		title: 'Электротехника', class_room: '301В'
 		number_week: [3, 7, 11, 15]
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 1
+		even_week: 0, number_lesson: 1
 		title: 'Правоведение', class_room: '101А'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 2
+		even_week: 0, number_lesson: 2
 		title: 'Правоведение', class_room: '430А'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 3
+		even_week: 0, number_lesson: 3
 		title: 'Моделирование систем', class_room: '306Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 4
+		even_week: 0, number_lesson: 4
 		title: 'Моделирование систем', class_room: '306Б'
 	})
 ]
@@ -162,32 +162,32 @@ friday_arr_lessons = [
 		title: 'Теория принятия решений', class_room: '304Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 2
+		even_week: 0, number_lesson: 2
 		title: 'Физическая культура', class_room: 'Зал'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 3
+		even_week: 0, number_lesson: 3
 		title: 'Теория принятия решений', class_room: '304Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 4
+		even_week: 0, number_lesson: 4
 		title: 'Теория принятия решений', class_room: '304Б'
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 5
+		even_week: 0, number_lesson: 5
 		title: 'Теория принятия решений', class_room: '609А'
 	})
 ]
 
 saturday_arr_lessons = [
 	new Lesson({
-		even_week: 2, number_lesson: 1
-		title: 'л/р Электротехника, электроника и схемотехника', class_room: '608А, 611А'
+		even_week: 0, number_lesson: 1
+		title: 'л/р Электротехника', class_room: '608А, 611А'
 		start_week: 6
 	})
 	new Lesson({
-		even_week: 2, number_lesson: 2
-		title: 'л/р Электротехника, электроника и схемотехника', class_room: '608А, 611А'
+		even_week: 0, number_lesson: 2
+		title: 'л/р Электротехника', class_room: '608А, 611А'
 		start_week: 6
 	})
 ]
