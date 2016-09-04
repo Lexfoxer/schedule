@@ -72,14 +72,15 @@ getNumberLessonsWeek = (date, callback)->
 	callback null, Math.ceil(((end - start) / (1000 * 60 * 60 * 24)) / 7)
 
 toDate = (date, callback)->
-	arr_date = date.split(' ')
-	if dictionary_ru_to_eng[arr_date[1]] != undefined
-		date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' '+arr_date[2]
-	if arr_date[2] == undefined
-		if dictionary_ru_to_eng[arr_date[1]] != undefined
-			date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' 2016'
-		else
-			date = arr_date[0]+' '+arr_date[1]+' 2016'
+	if typeof date != 'object'
+		arr_date = date.split(' ')
+		if dictionary_ru_to_eng[arr_date[1]] != undefined && arr_date.length != 1
+			date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' '+arr_date[2]
+		if arr_date[2] == undefined && arr_date.length != 1
+			if dictionary_ru_to_eng[arr_date[1]] != undefined && arr_date.length != 1
+				date = arr_date[0]+' '+dictionary_ru_to_eng[arr_date[1]]+' 2016'
+			else
+				date = arr_date[0]+' '+arr_date[1]+' 2016'
 
 	if isNaN(new Date(Date.parse(date)))
 		callback '<b>Дата не верна. Введите дату в формате: день месяц год</b>'

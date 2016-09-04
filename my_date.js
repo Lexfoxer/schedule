@@ -72,15 +72,17 @@
 
   toDate = function(date, callback) {
     var arr_date, code_week_fn, day_week, in_date, new_date;
-    arr_date = date.split(' ');
-    if (dictionary_ru_to_eng[arr_date[1]] !== void 0) {
-      date = arr_date[0] + ' ' + dictionary_ru_to_eng[arr_date[1]] + ' ' + arr_date[2];
-    }
-    if (arr_date[2] === void 0) {
-      if (dictionary_ru_to_eng[arr_date[1]] !== void 0) {
-        date = arr_date[0] + ' ' + dictionary_ru_to_eng[arr_date[1]] + ' 2016';
-      } else {
-        date = arr_date[0] + ' ' + arr_date[1] + ' 2016';
+    if (typeof date !== 'object') {
+      arr_date = date.split(' ');
+      if (dictionary_ru_to_eng[arr_date[1]] !== void 0 && arr_date.length !== 1) {
+        date = arr_date[0] + ' ' + dictionary_ru_to_eng[arr_date[1]] + ' ' + arr_date[2];
+      }
+      if (arr_date[2] === void 0 && arr_date.length !== 1) {
+        if (dictionary_ru_to_eng[arr_date[1]] !== void 0 && arr_date.length !== 1) {
+          date = arr_date[0] + ' ' + dictionary_ru_to_eng[arr_date[1]] + ' 2016';
+        } else {
+          date = arr_date[0] + ' ' + arr_date[1] + ' 2016';
+        }
       }
     }
     if (isNaN(new Date(Date.parse(date)))) {
