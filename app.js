@@ -31,7 +31,7 @@
       case 'послезавтра':
         return generation_event_new_messages(chatId, new Date(nDate.getTime() + (1000 * 60 * 60 * 24 * 2)));
       default:
-        return generation_event_new_messages(msg.text);
+        return generation_event_new_messages(chatId, msg.text);
     }
   });
 

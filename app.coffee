@@ -22,7 +22,7 @@ tb.on 'message', (msg)->
 		when 'послезавтра'
 			generation_event_new_messages chatId, new Date((nDate.getTime() + (1000*60*60*24*2)))
 		else
-			generation_event_new_messages msg.text
+			generation_event_new_messages chatId, msg.text
 
 
 
