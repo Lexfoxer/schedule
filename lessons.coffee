@@ -1,4 +1,4 @@
-'use strict'
+
 
 mongoose = require 'mongoose'
 tress = require 'tress'

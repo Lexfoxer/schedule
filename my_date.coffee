@@ -83,13 +83,13 @@ toDate = (date, callback)->
 				date = arr_date[0]+' '+arr_date[1]+' 2016'
 
 	if isNaN(new Date(Date.parse(date)))
-		callback '<b>Дата не верна. Введите дату в формате: день месяц год</b>'
+		callback 'Дата не верна. Введите дату в формате: день месяц год'
 
 	in_date = new Date(date).getTime()	# полученная дата в секундах
 	if in_date <= startDay.getTime() || in_date >= endDay.getTime()
-		callback '<b>Дата не входит в учебный семестр. Введите дату в формате: день месяц год</b>'
+		callback 'Дата не входит в учебный семестр. Введите дату в формате: день месяц год'
 
-	new_date = new Date((new Date(date).getTime()) + TZO)
+	new_date = new Date(new Date(in_date).getTime())
 	day_week = new_date.getDay()
 	code_week_fn = getNumberLessonsWeek new_date,(err, data)->
 		if err
