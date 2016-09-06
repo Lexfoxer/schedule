@@ -21,8 +21,37 @@ tb.on 'message', (msg)->
 			generation_event_new_messages chatId, new Date((nDate.getTime() + (1000*60*60*24)))
 		when 'послезавтра'
 			generation_event_new_messages chatId, new Date((nDate.getTime() + (1000*60*60*24*2)))
+		when 'сколько до выхода'
+			#
 		else
 			generation_event_new_messages chatId, msg.text
+
+how_time_to_univer = (string_time)->
+	arr_time = string_time.split ':'
+	gen_time = arr_time[0] * 360000 + arr_time[1] * 60000
+	console.log gen_time
+
+how_time_to_univer "1:30"
+
+how_time_out = (in_time)->
+	my_date.to_date new Date(),(err, out_date)->
+		if err
+			tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
+			throw err
+
+		lessons.day out_date.dayWeek, (err, obj_day)->
+			if err
+				tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
+				throw err
+			if obj_day.army
+				return create_send_message chatId, out_date, '<b>8:30</b>'
+
+			for key in obj_day.lessons
+				if key.even_week == even_week
+					console.log key.number_lesson
+					return
+
+
 
 
 
@@ -31,12 +60,14 @@ generation_event_new_messages = (chatId, in_mess)->
 		if err
 			tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
 			throw err
+
 		lessons.day out_date.dayWeek, (err, obj_day)->
 			if err
 				tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
 				throw err
 			if obj_day.army
 				return create_send_message chatId, out_date, '<b>8:30 - 17:00</b>\nВоенная кафедра'
+
 			lessons_to_string chatId, obj_day.lessons, out_date.evenWeek, out_date.codeWeek, (err, data)->
 				if err
 					tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
@@ -72,7 +103,6 @@ out_string = (key, callback)->
 
 
 create_send_message = (chatId, out_date, data)->
-	console.log out_date
 	message = """
 		<b>#{out_date.newDate.getDate()} #{my_date.dic_month[out_date.newDate.getMonth()]}
 		#{my_date.dic_date[out_date.dayWeek]}, #{out_date.codeWeek} неделя</b>\n\n
