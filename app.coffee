@@ -21,37 +21,8 @@ tb.on 'message', (msg)->
 			generation_event_new_messages chatId, new Date((nDate.getTime() + (1000*60*60*24)))
 		when 'послезавтра'
 			generation_event_new_messages chatId, new Date((nDate.getTime() + (1000*60*60*24*2)))
-		when 'сколько до выхода'
-			#
 		else
 			generation_event_new_messages chatId, msg.text
-
-how_time_to_univer = (string_time)->
-	arr_time = string_time.split ':'
-	gen_time = arr_time[0] * 360000 + arr_time[1] * 60000
-	console.log gen_time
-
-how_time_to_univer "1:30"
-
-how_time_out = (in_time)->
-	my_date.to_date new Date(),(err, out_date)->
-		if err
-			tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
-			throw err
-
-		lessons.day out_date.dayWeek, (err, obj_day)->
-			if err
-				tb.sendMessage chatId, '<b>'+err+'</b>', {parse_mode: "HTML"}
-				throw err
-			if obj_day.army
-				return create_send_message chatId, out_date, '<b>8:30</b>'
-
-			for key in obj_day.lessons
-				if key.even_week == even_week
-					console.log key.number_lesson
-					return
-
-
 
 
 
